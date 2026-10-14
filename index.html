@@ -75,7 +75,7 @@ function finish(){
 let pct=Math.round(score/questions.length*100);
 document.getElementById('app').innerHTML='<h1>🏁 Результат</h1><div id="result">'+score+' из '+questions.length+' баллов<br>'+pct+'%</div><p>'+(pct>=80?'Отличный результат!':pct>=60?'Хорошая работа! Повтори ошибки.':'Стоит ещё раз повторить правила дорожного движения.')+'</p><h3>Разбор ошибок</h3>'+(wrong.length?wrong.map(x=>'<p><b>'+x.q+'</b><br>Твой ответ: '+x.your+'<br>Правильно: '+x.correct+'<br>'+x.explain+'</p>').join(''):'Ошибок нет!')+'<button class="restart" onclick="location.reload()">Пройти ещё раз</button>';
 }
-show();
+showHome();
 </script>
 </body>
 </html>
