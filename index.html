@@ -2,121 +2,157 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Школа дорожной безопасности</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Юный пешеход — школа ПДД</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f1f7ff;color:#20334a}
-header{background:linear-gradient(135deg,#0877cf,#35b8e8);color:white;text-align:center;padding:28px 16px}
-header h1{font-size:clamp(25px,5vw,38px);margin:0 0 10px}
-header p{font-size:17px;margin:0}
-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;background:white;padding:12px;position:sticky;top:0;z-index:5;box-shadow:0 3px 12px #1232}
-nav button{width:auto;margin:0;padding:11px 14px;background:#e5f3ff;color:#14558a;font-size:15px}
-main{max-width:900px;margin:auto;padding:16px}
-section{scroll-margin-top:100px}
-.card{background:white;padding:20px;border-radius:20px;margin:16px 0;box-shadow:0 5px 18px #15365712}
+body{margin:0;font-family:Arial,sans-serif;background:#eff7ff;color:#20334a}
+header{background:linear-gradient(135deg,#0877cf,#42c8e8);color:white;text-align:center;padding:25px 15px}
+header h1{font-size:clamp(25px,5vw,36px);margin:0 0 8px}
+header p{margin:0}
+nav{display:flex;justify-content:center;flex-wrap:wrap;gap:7px;background:white;padding:10px;box-shadow:0 3px 12px #0001}
+button{border:0;border-radius:13px;padding:13px 16px;background:#1676cc;color:white;font-size:16px;font-weight:bold;cursor:pointer}
+nav button{background:#e3f2ff;color:#14558a}
+main{max-width:900px;margin:auto;padding:15px}
+.page{display:none;animation:appear .25s ease}
+.page.active{display:block}
+@keyframes appear{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.card{background:white;padding:20px;border-radius:20px;margin:15px 0;box-shadow:0 5px 18px #15365712}
+.hero{text-align:center;background:#dff4ff;padding:24px;border-radius:18px}
+.hero img{width:100%;max-width:550px;height:220px;object-fit:cover;border-radius:16px}
 h2{color:#1769aa}
-.hero{background:#dff4ff;text-align:center;padding:22px;border-radius:18px}
-.hero-art{font-size:76px;line-height:1.5}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
-.tile{background:#f0f8ff;border-radius:16px;padding:16px;text-align:center}
-.art{font-size:55px;line-height:1.5}
-button{border:0;border-radius:13px;padding:14px;background:#1676cc;color:white;font-size:16px;font-weight:bold;cursor:pointer;margin:5px 0}
-button:active{transform:scale(.98)}
-.full{width:100%}
-.answer{display:block;width:100%;text-align:left;background:#edf5fc;color:#20334a;border:2px solid #d7e7f5}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px}
+.tile{background:#f0f8ff;border-radius:16px;padding:15px;text-align:center}
+.tile img{width:100%;height:155px;object-fit:cover;border-radius:12px}
+.emoji{font-size:55px;line-height:1.4}
+.back{margin:5px 0 15px;background:#e3f2ff;color:#14558a}
+.answer{display:block;width:100%;text-align:left;margin:8px 0;background:#edf5fc;color:#20334a;border:2px solid #d7e7f5}
 .answer:disabled{opacity:1}
 .hidden{display:none!important}
 #feedback{padding:14px;border-radius:12px;line-height:1.5;margin-top:12px}
 .good{background:#dcfce7;color:#166534}
 .bad{background:#ffedd5;color:#9a3412}
-.sign{font-size:55px}
-footer{text-align:center;padding:25px;color:#61758a}
+footer{text-align:center;padding:22px;color:#61758a}
 .small{color:#64748b;font-size:14px}
 </style>
 </head>
 <body>
 <header>
-<h1>🚦 Школа дорожной безопасности</h1>
-<p>Учимся, играем и становимся внимательными участниками дорожного движения!</p>
+<h1>🚦 Юный пешеход</h1>
+<p>Учимся безопасно — играем с удовольствием!</p>
 </header>
 
 <nav>
-<button onclick="go('home')">🏠 Главная</button>
-<button onclick="go('rules')">📘 Правила</button>
-<button onclick="go('signs')">🚸 Знаки</button>
-<button onclick="go('games')">🎮 Игры</button>
-<button onclick="go('safe')">🛴 Безопасность</button>
+<button onclick="showPage('home')">🏠 Главная</button>
+<button onclick="showPage('rules')">📘 Правила</button>
+<button onclick="showPage('signs')">🚸 Знаки</button>
+<button onclick="showPage('games')">🎮 Игры</button>
+<button onclick="showPage('safe')">🛴 Безопасность</button>
 </nav>
 
 <main>
-<section id="home" class="card">
-<div class="hero">
-<div class="hero-art">🚦 🚸 🚲</div>
+<section id="home" class="page active">
+<div class="card hero">
+<img src="https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=1000&q=80" alt="Дорога и дорожная разметка">
 <h2>Привет, юный пешеход!</h2>
-<p>Здесь ты научишься безопасно переходить дорогу, узнаешь дорожные знаки и проверишь свои знания в играх.</p>
-<button onclick="go('games')">Начать играть 🎮</button>
+<p>Изучай дорожные знаки, учись переходить дорогу и проверяй знания в весёлых викторинах.</p>
+<button onclick="showPage('games')">Начать игру 🎮</button>
 </div>
 <div class="grid">
-<div class="tile"><div class="art">🚦</div><h3>Учим правила</h3><p>Разбираемся в сигналах светофора.</p><button onclick="go('rules')">Учиться</button></div>
-<div class="tile"><div class="art">🛑</div><h3>Дорожные знаки</h3><p>Знакомимся с важными знаками.</p><button onclick="go('signs')">Изучать</button></div>
-<div class="tile"><div class="art">🏆</div><h3>Проверь себя</h3><p>Отвечаем на вопросы и набираем очки.</p><button onclick="go('games')">Начать тест</button></div>
+<div class="tile">
+<div class="emoji">🚦</div><h3>Учим правила</h3>
+<p>Узнай, как безопасно переходить дорогу.</p>
+<button onclick="showPage('rules')">Открыть</button>
+</div>
+<div class="tile">
+<div class="emoji">🚸</div><h3>Дорожные знаки</h3>
+<p>Научись узнавать важные знаки.</p>
+<button onclick="showPage('signs')">Открыть</button>
+</div>
+<div class="tile">
+<div class="emoji">🏆</div><h3>Викторина</h3>
+<p>Отвечай на вопросы и получай очки.</p>
+<button onclick="showPage('games')">Играть</button>
+</div>
 </div>
 </section>
 
-<section id="rules" class="card">
+<section id="rules" class="page">
+<button class="back" onclick="showPage('home')">⬅️ Назад на главную</button>
+<div class="card">
 <h2>📘 Учим правила дорожного движения</h2>
 <div class="grid">
-<div class="tile"><div class="art">🔴🟡🟢</div><h3>Светофор</h3><p><b>Красный:</b> стой.<br><b>Жёлтый:</b> приготовься, но не начинай переход.<br><b>Зелёный:</b> можно переходить, если это безопасно и машины остановились.</p></div>
-<div class="tile"><div class="art">🚶‍♀️🚸</div><h3>Переход дороги</h3><p>Найди пешеходный переход. Остановись, посмотри по сторонам и убедись, что водители тебя заметили и пропускают.</p></div>
-<div class="tile"><div class="art">📱🚫</div><h3>Не отвлекайся</h3><p>Убери телефон и сними наушники перед переходом. Смотри на дорогу и слушай, что происходит вокруг.</p></div>
-<div class="tile"><div class="art">🚌</div><h3>Автобус</h3><p>Не выбегай из-за автобуса или другой машины. Они закрывают обзор. Попроси взрослого помочь выбрать безопасный путь.</p></div>
+<div class="tile">
+<img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=700&q=80" alt="Автобус на дороге">
+<h3>Светофор и дорога</h3>
+<p>Красный сигнал запрещает движение. Перед переходом дождись разрешающего сигнала и убедись, что машины остановились.</p>
+</div>
+<div class="tile">
+<img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=700&q=80" alt="Дорожка среди деревьев">
+<h3>Переход дороги</h3>
+<p>Найди пешеходный переход, остановись, посмотри по сторонам и переходи только тогда, когда это безопасно.</p>
+</div>
+<div class="tile">
+<div class="emoji">📱🚫</div>
+<h3>Не отвлекайся</h3>
+<p>Убери телефон и не отвлекайся на наушники, когда переходишь дорогу.</p>
+</div>
+</div>
 </div>
 </section>
 
-<section id="signs" class="card">
-<h2>🚸 Знакомимся с дорожными знаками</h2>
-<p>Посмотри на картинки и запомни, что они означают.</p>
+<section id="signs" class="page">
+<button class="back" onclick="showPage('home')">⬅️ Назад на главную</button>
+<div class="card">
+<h2>🚸 Изучаем дорожные знаки</h2>
+<p>Запомни значение этих знаков. Символы ниже — учебные иллюстрации, а не точные изображения официальных знаков.</p>
 <div class="grid">
-<div class="tile"><div class="sign">🚸</div><h3>Дети</h3><p>Предупреждает о месте, где на дороге могут появиться дети.</p></div>
-<div class="tile"><div class="sign">🚶</div><h3>Пешеходный переход</h3><p>Помогает найти место для перехода дороги. Всё равно нужно убедиться в безопасности.</p></div>
-<div class="tile"><div class="sign">⛔</div><h3>Въезд запрещён</h3><p>Запрещает въезд транспортных средств в обозначенном направлении.</p></div>
-<div class="tile"><div class="sign">🚳</div><h3>Движение на велосипеде запрещено</h3><p>На участке с этим знаком нельзя ехать на велосипеде.</p></div>
-<div class="tile"><div class="sign">🛑</div><h3>Стоп</h3><p>Знак требует остановиться перед обозначенной границей и действовать по правилам.</p></div>
-<div class="tile"><div class="sign">🚲</div><h3>Велосипедная дорожка</h3><p>Обозначает дорожку, предназначенную для движения велосипедистов.</p></div>
+<div class="tile"><div class="emoji">🚸</div><h3>Дети</h3><p>Предупреждает о месте, где на дороге могут появиться дети.</p></div>
+<div class="tile"><div class="emoji">🚶</div><h3>Пешеходный переход</h3><p>Указывает место, предназначенное для перехода пешеходов.</p></div>
+<div class="tile"><div class="emoji">⛔</div><h3>Въезд запрещён</h3><p>Запрещает въезд транспортных средств в обозначенном направлении.</p></div>
+<div class="tile"><div class="emoji">🚳</div><h3>Велосипед запрещён</h3><p>Запрещает движение на велосипеде там, где установлен знак.</p></div>
+<div class="tile"><div class="emoji">🛑</div><h3>Стоп</h3><p>Требует остановиться в установленном правилами месте.</p></div>
+<div class="tile"><div class="emoji">🚲</div><h3>Велосипедная дорожка</h3><p>Обозначает дорожку для движения велосипедистов.</p></div>
 </div>
-<p class="small">Эмодзи здесь служат учебными иллюстрациями, а не точными изображениями официальных дорожных знаков.</p>
+</div>
 </section>
 
-<section id="games" class="card">
+<section id="games" class="page">
+<button class="back" onclick="showPage('home')">⬅️ Назад на главную</button>
+<div class="card">
 <h2>🎮 Викторина по ПДД</h2>
-<p>Выбери возрастную группу. За каждый правильный ответ получишь одно очко.</p>
+<p>Выбери возраст. За каждый правильный ответ начисляется одно очко.</p>
 <div class="grid">
-<button onclick="start(0)">🧸 Мне 6–9 лет</button>
-<button onclick="start(1)">🎒 Мне 10–13 лет</button>
+<button onclick="startQuiz(0)">🧸 Мне 6–9 лет</button>
+<button onclick="startQuiz(1)">🎒 Мне 10–13 лет</button>
 </div>
 <div id="quiz" class="hidden">
 <p id="progress" class="small"></p>
 <h3 id="question"></h3>
 <div id="answers"></div>
 <div id="feedback" class="hidden"></div>
-<button id="next" class="full hidden" onclick="next()">Следующий вопрос ➜</button>
+<button id="next" class="hidden" onclick="nextQuestion()">Следующий вопрос ➜</button>
 </div>
 <div id="result" class="tile hidden">
-<div class="art">🏆</div>
+<div class="emoji">🏆</div>
 <h3 id="score"></h3>
 <p id="message"></p>
-<button onclick="start(age)">🔄 Сыграть ещё раз</button>
+<button onclick="startQuiz(currentAge)">🔄 Играть ещё раз</button>
+<button class="back" onclick="resetQuiz()">Выбрать возраст</button>
+</div>
 </div>
 </section>
 
-<section id="safe" class="card">
+<section id="safe" class="page">
+<button class="back" onclick="showPage('home')">⬅️ Назад на главную</button>
+<div class="card">
 <h2>🛴 Безопасный путь</h2>
 <div class="grid">
-<div class="tile"><div class="art">🚶‍♂️</div><h3>Пешеход</h3><p>Иди по тротуару. Если тротуара нет, попроси взрослого объяснить, как безопасно двигаться по дороге.</p></div>
-<div class="tile"><div class="art">🚲🪖</div><h3>Велосипед</h3><p>Носи подходящий шлем, проверяй тормоза и выбирай безопасный маршрут с учётом возраста и местных правил.</p></div>
-<div class="tile"><div class="art">🚗💺</div><h3>Пассажир</h3><p>Пристёгивайся ремнём и используй подходящее детское удерживающее устройство, когда оно требуется.</p></div>
-<div class="tile"><div class="art">⚽🛣️</div><h3>Мяч на дороге</h3><p>Не беги за мячом на проезжую часть. Остановись и обратись к взрослому за помощью.</p></div>
+<div class="tile"><div class="emoji">🚶‍♀️</div><h3>Пешеход</h3><p>Иди по тротуару. Не выбегай на дорогу и следи за движением вокруг.</p></div>
+<div class="tile"><div class="emoji">🚲🪖</div><h3>Велосипед</h3><p>Используй подходящий шлем, проверяй тормоза и выбирай безопасный маршрут.</p></div>
+<div class="tile"><div class="emoji">🚗💺</div><h3>Пассажир</h3><p>Пристёгивайся ремнём и используй подходящее детское удерживающее устройство, если оно требуется.</p></div>
+<div class="tile"><div class="emoji">⚽🛣️</div><h3>Мяч на дороге</h3><p>Не беги за мячом на проезжую часть. Остановись и попроси взрослого помочь.</p></div>
+</div>
 </div>
 </section>
 </main>
@@ -124,67 +160,91 @@ footer{text-align:center;padding:25px;color:#61758a}
 <footer>🌟 Учись, играй и соблюдай правила дорожного движения!</footer>
 
 <script>
-const data=[
+const quizzes=[
 [
 {q:"Какой сигнал светофора запрещает начинать переход?",a:["Зелёный","Красный","Синий"],c:1,e:"Красный сигнал запрещает движение. Дождись разрешающего сигнала."},
-{q:"Где лучше переходить дорогу?",a:["По пешеходному переходу","Между машинами","Где угодно"],c:0,e:"Выбирай пешеходный переход и обязательно убеждайся, что переход безопасен."},
-{q:"Что нужно сделать перед переходом?",a:["Побежать","Посмотреть в телефон","Остановиться и оценить обстановку"],c:2,e:"Остановись, посмотри по сторонам и убедись, что машины остановились."},
-{q:"Где безопаснее играть в мяч?",a:["На дороге","На площадке вдали от машин","На парковке"],c:1,e:"Играй на площадке, предназначенной для игр, вдали от автомобилей."},
+{q:"Где лучше переходить дорогу?",a:["Между машинами","По пешеходному переходу","Где угодно"],c:1,e:"Выбирай пешеходный переход и убеждайся, что переход безопасен."},
+{q:"Что сделать перед переходом?",a:["Побежать","Посмотреть в телефон","Остановиться и оценить обстановку"],c:2,e:"Остановись, посмотри по сторонам и убедись, что машины остановились."},
+{q:"Где безопаснее играть в мяч?",a:["На дороге","На площадке вдали от машин","На парковке"],c:1,e:"Играй на площадке вдали от автомобилей."},
 {q:"Можно ли выбегать из-за автобуса?",a:["Да","Нет, он закрывает обзор","Если быстро"],c:1,e:"Водители могут тебя не видеть. Не выбегай из-за автобуса."}
 ],
 [
-{q:"Почему опасно переходить между припаркованными машинами?",a:["Машины громкие","Водители могут поздно заметить пешехода","Там всегда темно"],c:1,e:"Припаркованные машины закрывают обзор."},
+{q:"Почему опасно переходить между припаркованными машинами?",a:["Машины красивые","Водители могут поздно заметить пешехода","Там всегда темно"],c:1,e:"Припаркованные машины закрывают обзор."},
 {q:"Что делать у нерегулируемого перехода?",a:["Идти не глядя","Бежать","Оценить обстановку и убедиться, что водители пропускают"],c:2,e:"Переходи только после того, как убедишься, что это безопасно."},
-{q:"Как вести себя при переходе дороги?",a:["Смотреть в телефон","Убрать телефон и внимательно следить за дорогой","Закрыть глаза"],c:1,e:"Внимание должно быть направлено на дорогу."},
+{q:"Как вести себя при переходе дороги?",a:["Смотреть в телефон","Убрать телефон и следить за дорогой","Закрыть глаза"],c:1,e:"Внимание должно быть направлено на дорогу."},
 {q:"Мяч укатился на проезжую часть. Что делать?",a:["Сразу бежать","Попросить взрослого помочь","Попросить друга выбежать"],c:1,e:"Не выбегай на дорогу. Позови взрослого."},
 {q:"Что означает мигающий зелёный сигнал?",a:["Сигнал скоро сменится","Можно не смотреть по сторонам","Дорога закрыта навсегда"],c:0,e:"Сигнал предупреждает о скорой смене. Оцени, безопасно ли переходить."},
-{q:"Как безопаснее кататься на велосипеде?",a:["Без шлема и по любой дороге","С соблюдением правил и защитой","Не замечая знаки"],c:1,e:"Носи шлем и выбирай подходящий безопасный маршрут."},
+{q:"Как безопаснее кататься на велосипеде?",a:["Без шлема и по любой дороге","С соблюдением правил и защитой","Не замечая знаки"],c:1,e:"Используй шлем и выбирай подходящий маршрут."},
 {q:"Почему важно убедиться, что автомобиль остановился?",a:["Водитель может не заметить пешехода","Все машины останавливаются мгновенно","Это необязательно"],c:0,e:"Водитель может не увидеть тебя или не успеть затормозить."}
 ]
 ];
-let age=0,idx=0,score=0,locked=false;
-function go(id){document.getElementById(id).scrollIntoView({behavior:"smooth"});}
-function start(a){
-age=a;idx=0;score=0;
+
+let currentAge=0,index=0,points=0,locked=false;
+
+function showPage(id){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+window.scrollTo({top:0,behavior:"smooth"});
+}
+function resetQuiz(){
+document.getElementById("quiz").classList.add("hidden");
+document.getElementById("result").classList.add("hidden");
+}
+function startQuiz(age){
+currentAge=age;index=0;points=0;
 document.getElementById("quiz").classList.remove("hidden");
 document.getElementById("result").classList.add("hidden");
-render();
+renderQuestion();
 }
-function render(){
+function renderQuestion(){
 locked=false;
-let item=data[age][idx];
-document.getElementById("progress").textContent="Вопрос "+(idx+1)+" из "+data[age].length+" · Очки: "+score;
+const item=quizzes[currentAge][index];
+document.getElementById("progress").textContent="Вопрос "+(index+1)+" из "+quizzes[currentAge].length+" · Очки: "+points;
 document.getElementById("question").textContent=item.q;
-let box=document.getElementById("answers");box.innerHTML="";
-document.getElementById("feedback").className="hidden";
+const box=document.getElementById("answers");box.innerHTML="";
+const feedback=document.getElementById("feedback");
+feedback.className="hidden";feedback.textContent="";
 document.getElementById("next").classList.add("hidden");
-item.a.forEach((v,i)=>{
-let b=document.createElement("button");
-b.className="answer";b.textContent=String.fromCharCode(65+i)+". "+v;
-b.onclick=()=>choose(i);box.appendChild(b);
+item.a.forEach((answer,i)=>{
+const b=document.createElement("button");
+b.className="answer";
+b.textContent=String.fromCharCode(65+i)+". "+answer;
+b.onclick=()=>chooseAnswer(i);
+box.appendChild(b);
 });
 }
-function choose(n){
-if(locked)return;locked=true;
-let item=data[age][idx];
+function chooseAnswer(choice){
+if(locked)return;
+locked=true;
+const item=quizzes[currentAge][index];
 document.querySelectorAll("#answers button").forEach((b,i)=>{
-b.disabled=true;if(i===item.c)b.style.borderColor="#22a06b";
+b.disabled=true;
+if(i===item.c)b.style.borderColor="#22a06b";
 });
-let f=document.getElementById("feedback");f.classList.remove("hidden");
-if(n===item.c){score++;f.className="good";f.textContent="✅ Правильно! "+item.e;}
-else{f.className="bad";f.textContent="🙂 Правильный ответ: "+item.a[item.c]+". "+item.e;}
-document.getElementById("progress").textContent="Вопрос "+(idx+1)+" из "+data[age].length+" · Очки: "+score;
-let b=document.getElementById("next");b.classList.remove("hidden");
-b.textContent=idx===data[age].length-1?"Посмотреть результат 🏆":"Следующий вопрос ➜";
+const f=document.getElementById("feedback");
+f.classList.remove("hidden");
+if(choice===item.c){
+points++;f.className="good";f.textContent="✅ Правильно! "+item.e;
+}else{
+f.className="bad";f.textContent="🙂 Правильный ответ: "+item.a[item.c]+". "+item.e;
 }
-function next(){
-if(!locked)return;idx++;
-if(idx>=data[age].length){
+document.getElementById("progress").textContent="Вопрос "+(index+1)+" из "+quizzes[currentAge].length+" · Очки: "+points;
+const next=document.getElementById("next");
+next.classList.remove("hidden");
+next.textContent=index===quizzes[currentAge].length-1?"Посмотреть результат 🏆":"Следующий вопрос ➜";
+}
+function nextQuestion(){
+if(!locked)return;
+index++;
+if(index>=quizzes[currentAge].length){
 document.getElementById("quiz").classList.add("hidden");
 document.getElementById("result").classList.remove("hidden");
-document.getElementById("score").textContent="Твой результат: "+score+" из "+data[age].length;
-document.getElementById("message").textContent=score===data[age].length?"🌟 Прекрасно! Все ответы правильные!":score>=data[age].length/2?"👏 Хорошая работа! Повтори правила и сыграй ещё раз.":"💪 Продолжай учиться — у тебя получится!";
-}else render();
+document.getElementById("score").textContent="Твой результат: "+points+" из "+quizzes[currentAge].length;
+document.getElementById("message").textContent=
+points===quizzes[currentAge].length?"🌟 Великолепно! Все ответы правильные!":
+points>=quizzes[currentAge].length/2?"👏 Отличная работа! Повтори правила и попробуй ещё раз.":
+"💪 Не сдавайся! Повтори правила и сыграй ещё раз.";
+}else renderQuestion();
 }
 </script>
 </body>
