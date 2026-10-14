@@ -54,3 +54,28 @@ show();
 </script>
 </body>
 </html>
+опасного обзора","Идти между автобусом и машиной"],1,"Из-за автобуса могут быть не видны приближающиеся машины."]
+];
+let i=0,score=0,chosen=null,wrong=[];
+function show(){
+let app=document.getElementById('app');
+if(i===questions.length){finish();return}
+let q=questions[i];chosen=null;
+app.innerHTML='<h1>🚦 Тренажёр по ПДД</h1><p class="small">Вопрос '+(i+1)+' из '+questions.length+'</p><h3>'+q[0]+'</h3><div id="opts"></div><p id="feedback"></p><button id="next" disabled>Ответить</button>';
+q[1].forEach((a,n)=>{let b=document.createElement('button');b.textContent=a;b.onclick=()=>{chosen=n;document.querySelectorAll('#opts button').forEach(x=>x.style.background='white');b.style.background='#d9edff';document.getElementById('next').disabled=false};document.getElementById('opts').appendChild(b)});
+document.getElementById('next').onclick=()=>{
+if(chosen===null)return;
+if(chosen===q[2]){score++;document.getElementById('feedback').textContent='Верно! '+q[3]}
+else{wrong.push({q:q[0],your:q[1][chosen],correct:q[1][q[2]],explain:q[3]});document.getElementById('feedback').textContent='Правильный ответ: '+q[1][q[2]]+'. '+q[3]}
+document.getElementById('next').textContent=i===questions.length-1?'Результат':'Следующий вопрос';
+document.getElementById('next').onclick=()=>{i++;show()};
+};
+}
+function finish(){
+let pct=Math.round(score/questions.length*100);
+document.getElementById('app').innerHTML='<h1>🏁 Результат</h1><div id="result">'+score+' из '+questions.length+' баллов<br>'+pct+'%</div><p>'+(pct>=80?'Отличный результат!':pct>=60?'Хорошая работа! Повтори ошибки.':'Стоит ещё раз повторить правила дорожного движения.')+'</p><h3>Разбор ошибок</h3>'+(wrong.length?wrong.map(x=>'<p><b>'+x.q+'</b><br>Твой ответ: '+x.your+'<br>Правильно: '+x.correct+'<br>'+x.explain+'</p>').join(''):'Ошибок нет!')+'<button class="restart" onclick="location.reload()">Пройти ещё раз</button>';
+}
+show();
+</script>
+</body>
+</html>
